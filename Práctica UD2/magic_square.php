@@ -4,7 +4,7 @@ class Cuadrado
 {
     public function analyzeMagicSquare($array)
     {
-
+        $firstRow = 0;
     }
 
     public function showMagicSquare($magicSquare)
@@ -12,24 +12,29 @@ class Cuadrado
        
     }
 
-    function countRow($array)
+    function countRow($array, &$firstRow)
     {
-        $addition = 0;
         $addArray = [];
         for ($i=0; $i < count($array); $i++) { 
+            $addition = 0;
             for ($j=0; $j < count($array[$i]); $j++) { 
                 $addition += $array[$i][$j];
+                //array_sum
             }
-            
+            $addArray[$i] = $addition;
         }
+        return equalsTrue($addArray);
     }
 
     function countColumn($array)
     {
+        $addArray = [];
         for ($i=0; $i < count($array); $i++) { 
+            $addition = 0;
             for ($j=0; $j < count($array[$i]); $j++) { 
-               
+                $addition += $array[$j][$i];
             }
+            $addArray[$i] = $addition;
         }
     }
 
@@ -40,6 +45,18 @@ class Cuadrado
                
             }
         }
+    }
+
+    function equalsTrue($array, &$firstRow)
+    {
+        $isTrueBool = True;
+        for ($i=1; $i < count($array); $i++) { 
+            if($array[0]!= $array[$i])
+            {
+                $isTrueBool = False;
+            }
+        }
+        return $isTrueBool;
     }
 
 }
