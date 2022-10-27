@@ -1,10 +1,21 @@
 <?php
 
 class Cuadrado
+
 {
+    public $firstRow;
+
+    public $sumRows;
+
+    public $sumColumns;
+
+    public $firstDiagonal;
+
+    public $secondDiagonal;
+
     public function analyzeMagicSquare($array)
     {
-        $firstRow = 0;
+
     }
 
     public function showMagicSquare($magicSquare)
@@ -12,7 +23,7 @@ class Cuadrado
        
     }
 
-    function countRow($array, &$firstRow)
+    function sumRows($array, &$firstRow)
     {
         $addArray = [];
         for ($i=0; $i < count($array); $i++) { 
@@ -26,7 +37,7 @@ class Cuadrado
         return equalsTrue($addArray);
     }
 
-    function countColumn($array)
+    function sumColumns($array)
     {
         $addArray = [];
         for ($i=0; $i < count($array); $i++) { 
@@ -38,13 +49,21 @@ class Cuadrado
         }
     }
 
-    function countDiagonal($array)
+    function sumFirstDiagonal($array)
+    {
+        $columnIndex = count($array) -1;
+        for ($i=0; $i < count($array); $i++) { 
+            $diagonalSum += $array[$columnIndex-$i][$i];
+        }
+        return $diagonalSum;
+    }
+
+    function sumSeconDiagonal($array)
     {
         for ($i=0; $i < count($array); $i++) { 
-            for ($j=0; $j < count($array[$i]); $j++) { 
-               
-            }
+            $diagonalSum += $array[$i][$i];
         }
+        return $diagonalSum;
     }
 
     function equalsTrue($array, &$firstRow)
