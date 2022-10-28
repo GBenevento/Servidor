@@ -1,21 +1,37 @@
 <?php
 
-class Cuadrado
-
+class Square
 {
+    // Propierdades
+
+    public $array;
+    
     public $firstRow;
 
-    public $sumRows;
+    public $rows;
 
-    public $sumColumns;
+    public $columns;
 
     public $firstDiagonal;
 
     public $secondDiagonal;
 
+    // Método constructor
+
+    function __construct($array)
+    {
+        $this->array = $array;
+    }
+
+    //Métodos principales
+
     public function analyzeMagicSquare($array)
     {
-
+        $this->firstRow = $this->sumFirstRow($array);
+        $this->rows = $this->sumRows($array);
+        $this->columns = $this->sumColumns($array);
+        $this->firstDiagonal = $this->sumFirstDiagonal($array);
+        $this->secondDiagonal = $this->sumSeconDiagonal($array);
     }
 
     public function showMagicSquare($magicSquare)
@@ -23,18 +39,24 @@ class Cuadrado
        
     }
 
-    function sumRows($array, &$firstRow)
+    // Otros métodos
+
+    function sumFirstRow($array)
+    {
+        return array_sum($array[0]);
+    }
+
+    function sumRows($array)
     {
         $addArray = [];
         for ($i=0; $i < count($array); $i++) { 
             $addition = 0;
             for ($j=0; $j < count($array[$i]); $j++) { 
                 $addition += $array[$i][$j];
-                //array_sum
             }
             $addArray[$i] = $addition;
         }
-        return equalsTrue($addArray);
+        return $addArray;
     }
 
     function sumColumns($array)
@@ -47,6 +69,7 @@ class Cuadrado
             }
             $addArray[$i] = $addition;
         }
+        return $addArray;
     }
 
     function sumFirstDiagonal($array)
@@ -66,16 +89,5 @@ class Cuadrado
         return $diagonalSum;
     }
 
-    function equalsTrue($array, &$firstRow)
-    {
-        $isTrueBool = True;
-        for ($i=1; $i < count($array); $i++) { 
-            if($array[0]!= $array[$i])
-            {
-                $isTrueBool = False;
-            }
-        }
-        return $isTrueBool;
-    }
 
 }
