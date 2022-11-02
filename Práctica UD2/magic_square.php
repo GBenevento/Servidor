@@ -1,8 +1,10 @@
 <?php
+ini_set('display_errors', 'On');
+ini_set('html_errors', 0);
 
 class Square
 {
-    // Propierdades
+    // Properties
 
     public $array;
     
@@ -16,78 +18,195 @@ class Square
 
     public $secondDiagonal;
 
-    // Método constructor
+    public $diffRows  = [];
+
+    public $diffColumns  = [];
+
+    public $diffDiagonals = [];
+
+    public $isMagic;
+
+
+    // Construct method
 
     function __construct($array)
     {
         $this->array = $array;
     }
 
-    //Métodos principales
+    //Main methods
 
-    public function analyzeMagicSquare($array)
+    public function analyzeMagicSquare()
     {
-        $this->firstRow = $this->sumFirstRow($array);
-        $this->rows = $this->sumRows($array);
-        $this->columns = $this->sumColumns($array);
-        $this->firstDiagonal = $this->sumFirstDiagonal($array);
-        $this->secondDiagonal = $this->sumSeconDiagonal($array);
+        $this->sumFirstRow();
+        $this->sumRows();
+        $this->sumColumns();
+        $this->sumFirstDiagonal();
+        $this->sumSeconDiagonal();
+        $this->diffRows();
+        $this->diffColumns();
+        $this->diffDiagonals();
+        $this->isMagic();
     }
 
-    public function showMagicSquare($magicSquare)
+    public function showMagicSquare()
     {
-       
+       if ($this->isMagic)
+       {
+        echo "Magic Square";
+       }
+       else
+       {
+        echo "Not a magic square";
+       }
+
+       echo "<br>";
+       echo "<br>";
+       echo "The sum of the first row is " . $this->firstRow;
+       echo "<br>";
+       echo "<br>";
+
+       if(!empty($this->diffRows))
+       {
+        echo "The rows that are different from " . $this->firstRow . " are:";
+        echo "<br>";
+        echo "<br>";
+        foreach($this->diffRows as $key => $value)
+        {
+          echo "Row ". $value+1 . " with a value of " . $this->rows[$value];
+          echo "<br>";
+          echo "<br>";
+        }
+       }
+
+       if(!empty($this->diffColumns))
+       {
+        echo "The columns that are different from " . $this->firstRow . " are:";
+        echo "<br>";
+        echo "<br>";
+        foreach($this->diffColumns as $key => $value)
+        {
+          echo "Column ". $value+1 . " with a value of " . $this->columns[$value];
+          echo "<br>";
+          echo "<br>";
+        }
+       }
+
+       if(!empty($this->diffDiagonals))
+       {
+        echo "The diagonals that are different from " . $this->firstRow . " are:";
+        echo "<br>";
+        echo "<br>";
+        foreach($this->diffDiagonals as $key => $value)
+        {
+          echo "The ". $value . " diagonal with a value of ";
+          if($value == "first")
+           {
+            echo $this->firstDiagonal;
+           }
+           else if($value == "second")
+           {
+           echo $this->secondDiagonal;
+           }
+          echo "<br>";
+          echo "<br>";
+        }
+       }
+
+
     }
 
-    // Otros métodos
+    // Other methods
 
-    function sumFirstRow($array)
+    function sumFirstRow()
     {
-        return array_sum($array[0]);
+        $this->firstRow = array_sum($this->array[0]);
     }
 
-    function sumRows($array)
+    function sumRows()
     {
         $addArray = [];
-        for ($i=0; $i < count($array); $i++) { 
+        for ($i=0; $i < count($this->array); $i++) { 
             $addition = 0;
-            for ($j=0; $j < count($array[$i]); $j++) { 
-                $addition += $array[$i][$j];
+            for ($j=0; $j < count($this->array[$i]); $j++) { 
+                $addition += $this->array[$i][$j];
             }
             $addArray[$i] = $addition;
         }
-        return $addArray;
+        $this->rows = $addArray;
     }
 
-    function sumColumns($array)
+    function sumColumns()
     {
         $addArray = [];
-        for ($i=0; $i < count($array); $i++) { 
+        for ($i=0; $i < count($this->array); $i++) { 
             $addition = 0;
-            for ($j=0; $j < count($array[$i]); $j++) { 
-                $addition += $array[$j][$i];
+            for ($j=0; $j < count($this->array[$i]); $j++) { 
+                $addition += $this->array[$j][$i];
             }
             $addArray[$i] = $addition;
         }
-        return $addArray;
+        $this->columns = $addArray;
     }
 
-    function sumFirstDiagonal($array)
+    function sumFirstDiagonal()
     {
-        $columnIndex = count($array) -1;
-        for ($i=0; $i < count($array); $i++) { 
-            $diagonalSum += $array[$columnIndex-$i][$i];
+        $diagonalSum=0;
+        $columnIndex = count($this->array) -1;
+        for ($i=0; $i < count($this->array); $i++) { 
+            $diagonalSum += $this->array[$columnIndex-$i][$i];
         }
-        return $diagonalSum;
+        $this->firstDiagonal = $diagonalSum;
     }
 
-    function sumSeconDiagonal($array)
+    function sumSeconDiagonal()
     {
-        for ($i=0; $i < count($array); $i++) { 
-            $diagonalSum += $array[$i][$i];
+        $diagonalSum=0;
+        for ($i=0; $i < count($this->array); $i++) { 
+            $diagonalSum += $this->array[$i][$i];
         }
-        return $diagonalSum;
+        $this->secondDiagonal = $diagonalSum;
     }
 
+    function diffRows()
+    {
+        $rows = $this->rows;
 
+        for ($i=0; $i < count($rows); $i++) { 
+            if($rows[$i] != $this->firstRow)
+            {
+                $this->diffRows[$i] = $i;
+            }
+        }
+    }
+
+    function diffColumns()
+    {
+        $columns = $this->columns;
+
+        for ($i=0; $i < count($columns); $i++) { 
+            if($columns[$i] != $this->firstRow)
+            {
+                $this->diffColumns[$i] = $i;
+            }
+        }
+    }
+
+    function diffDiagonals()
+    {
+        if($this->firstDiagonal != $this->firstRow)
+        {
+            array_push($this->diffDiagonals, "first");
+        }
+
+        if($this->secondDiagonal != $this->firstRow)
+        {
+            array_push($this->diffDiagonals, "second");
+        }
+    }
+
+    function isMagic()
+    {
+        $this->isMagic = (empty($this->diffRows) && empty($this->diffColumns) && empty($this->diffDiagonals));
+    }
 }
