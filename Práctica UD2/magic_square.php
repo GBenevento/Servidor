@@ -187,7 +187,7 @@ class Square
 
         for ($i = 0; $i < count($rows); $i++) {
             if ($rows[$i] != $this->firstRow) {
-                $this->diffRows[$i] = $i;
+                array_push($this->diffRows, $i);
             }
         }
     }
@@ -198,7 +198,7 @@ class Square
 
         for ($i = 0; $i < count($columns); $i++) {
             if ($columns[$i] != $this->firstRow) {
-                $this->diffColumns[$i] = $i;
+                array_push($this->diffColumns, $i);
             }
         }
     }

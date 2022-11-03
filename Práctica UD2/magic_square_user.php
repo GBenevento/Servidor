@@ -15,9 +15,6 @@
             height: 200px;
             width: 200px;
             }
-        .correcto{
-            color: green;
-        }
     </style>
 
     <title>Magic square</title>
