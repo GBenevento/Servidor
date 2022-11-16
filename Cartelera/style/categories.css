@@ -1,0 +1,37 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+li{
+  list-style-type: none;
+}
+body {
+  background: rgb(2,2,82);
+  background: linear-gradient(90deg, rgba(2,2,82,1) 0%, rgba(21,21,128,1) 25%, rgba(21,21,128,1) 82%, rgba(2,2,82,1) 100%);
+}
+.large_conatiner{
+  min-height: 100vh;
+  display: flex;
+  color: antiquewhite;
+  flex-direction: column;
+}
+
+.container{
+  height: 50vh;
+  width: 50vw;
+  margin: auto;
+
+}
+
+img{
+  height: 100%;
+  width: 100%
+}
+
+footer{
+  width: 100vw;
+  margin-bottom: 0;
+  margin-top: auto;
+}
