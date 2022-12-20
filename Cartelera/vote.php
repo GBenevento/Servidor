@@ -15,7 +15,9 @@
 <body>
     <div class="large_container">
         <div class="title">
-            <h2>Cartelera</h2>
+        <a  href="categories.php">
+            <h2>Billboard</h2>
+        </a>
         </div>
 
         <div class="container">

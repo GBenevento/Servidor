@@ -15,7 +15,7 @@
 <body>
     <div class="large_container">
         <div class="title">
-            <h2>Cartelera</h2>
+            <h2>Billboard</h2>
         </div>
 
         <div class="container">
