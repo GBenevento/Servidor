@@ -160,10 +160,23 @@ h2{
 }
 
 .votes{
+    display: flex;
     height: 5%;
     padding-top: 8vh;
+    align-items: center;
+    justify-content: center;
+    gap: 2%;
 }
+
+
 h1{
     font-family: 'Anton', sans-serif;
+}
+
+button{
+    font-size: 1em;
+    border: none;
+    border-radius: 1vh;
+    padding: 1vh;
 }
 

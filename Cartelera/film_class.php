@@ -92,6 +92,7 @@ class Film
                     <div class="top-row">
                         <h1>'.$this->title.'</h1>
                         <span class="votes">Votes: '.$this->votes.'</span>
+                       
                     </div>
                     <div class="synopsis">
                         <p>'.$this->synopsis.'</p>
@@ -208,6 +209,11 @@ class Film
                     </div>
                     <div class="votes">
                         <span>Votes: '.$this->votes.'</span>
+                        <form action="vote.php?film='.$this->id.'" method="POST">
+                        <div class="button">
+                        <input type="hidden" name="film" id="film" value="'.$this->id.'" />
+                            <button type="submit">+</button> 
+                        </div>
                     </div>
                 </div>
         </div>
@@ -223,15 +229,21 @@ class Film
         }
         mysqli_select_db($conn, "films");
 
-        $id_pelicula = $_POST['film_id'];
+        $filmID = $_POST['film'];
         $sanitized_filmID = mysqli_real_escape_string($conn, $filmID);
-        $query = "UPDATE t_films SET votes = votoes + 1 WHERE ID = ". $filmID . ";";
+        $query = "UPDATE t_films SET votes = (votes + 1) WHERE ID = ".$sanitized_filmID. ";";
         $result = mysqli_query($conn, $query);
 
         if (!$result) {
             $message = 'Invalid query: ' . mysqli_error($conexion) . "\n";
             die($message);
-        } 
+        }else{
+            echo '
+            <div class="thanks">
+                <h1>Thank you for voting</h1>
+            </div>
+            ';
+        }
     }
 
 }
